@@ -11,12 +11,6 @@ class EventController extends AbstractController
     public function retrieveEvent(): Response
     {
 
-      // $response = new Response(
-      //  ['response' => 'yes'],
-      //    Response::HTTP_OK,
-      //   ['content-type' => 'application/json']
-      // );
-
       $data = [
         'title' => 'Some Event',
         'host' => 'Ryan',
