@@ -10,7 +10,7 @@ class EventController extends AbstractController
     #[Route('/events/retrieve-event', name: 'retrieve_event')]
     public function retrieveEvent(): Response
     {
-
+      // Note: temporary data schema until database is set up
       $data = [
         'title' => 'Some Event',
         'host' => 'Ryan',
