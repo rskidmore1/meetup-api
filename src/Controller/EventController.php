@@ -19,6 +19,8 @@ class EventController extends AbstractController
           $photo => './somefile' // @todo: replace this
         ],
         $text => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae erat eleifend, egestas lorem eu, vehicula nisl.',
+        $top_comment => true,
+        $replys => [], // @todo: figure out how to keep order
       ];
 
       // Note: temporary data schema until database is set up
@@ -32,6 +34,7 @@ class EventController extends AbstractController
         'start-time' => 'sometime',
         'end-time' => 'sometime',
         'group' => 'somegroupID',
+        'comments' => [$comment, $comment],
       ];
 
       $response = new Response(json_encode($data));
