@@ -12,3 +12,11 @@ blog_list:
 retrieve_event:
     path: /events/retrieve-event
     controller: App\Controller\EventController::retrieveEvent
+
+retrieve_product:
+    path: /products/retrieve-product
+    controller: App\Controller\ProductController::retrieveProduct
+
+show_action:
+    path: /products/show-action
+    controller: App\Controller\ProductController::showAction
