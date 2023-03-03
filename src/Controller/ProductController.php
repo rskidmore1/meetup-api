@@ -19,10 +19,14 @@ class ProductController extends AbstractController
         $product->setName('A Foo Bar');
         $product->setPrice('19.99');
 
-        $dm->persist($product);
-        $dm->flush();
+        // $dm->persist($product);
+        // $dm->flush();
 
-        return new Response('Created product id.');
+        return new Response(
+              json_encode(['Product' => $product]),
+              Response::HTTP_OK,
+              ['content-type' => 'application/json']
+        );
 
       // // Note: temporary data schema until database is set up
       // $data = [

@@ -13,23 +13,25 @@ class Product
     /**
      * @MongoDB\Id
      */
-    protected $id;
+    private $id;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    protected $name;
+    public $name;
 
     /**
      * @MongoDB\Field(type="float")
      */
-    protected $price;
+    public $price;
 
-    public function setName($arg){
-      return $arg;
+    public function setName($arg): void
+    {
+      $this->name = $arg;
     }
 
-    public function setPrice($arg){
-      return $arg;
+    public function setPrice($arg): void
+    {
+      $this->price = $arg;
     }
 }
