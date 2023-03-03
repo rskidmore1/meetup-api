@@ -4,6 +4,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use MongoDB\BSON\ObjectId;
 
 use App\Document\Product;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -43,15 +44,17 @@ class ProductController extends AbstractController
     }
 
     #[Route('/products/show-action', name: 'show_action')]
-    public function showAction(DocumentManager $dm, $id)
+    public function showAction(DocumentManager $dm)
     {
-        $product = $dm->getRepository(Product::class)->find($id);
+        $someId = new ObjectId('63ffeab570b22eb36e00ca01');
+
+        $product = $dm->getRepository(Product::class)->find($someId);
 
         if (! $product) {
             throw $this->createNotFoundException('No product found for id ' . $id);
         }
 
         // do something, like pass the $product object into a template
-        return new Response('Retrieved product id.');
+        return new Response('Retrieved product id.' . $someId);
     }
 }
