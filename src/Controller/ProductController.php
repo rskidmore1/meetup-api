@@ -19,8 +19,8 @@ class ProductController extends AbstractController
         $product->setName('A Foo Bar');
         $product->setPrice('19.99');
 
-        // $dm->persist($product);
-        // $dm->flush();
+        $dm->persist($product);
+        $dm->flush();
 
         return new Response(
               json_encode(['Product' => $product]),
@@ -40,17 +40,12 @@ class ProductController extends AbstractController
       //   'end-time' => 'sometime',
       //   'group' => 'somegroupID',
       // ];
-
-      // $response = new Response(json_encode($data));
-      // $response->headers->set('Content-Type', 'application/json');
-
-      // return $response;
     }
 
     #[Route('/products/show-action', name: 'show_action')]
     public function showAction(DocumentManager $dm)
     {
-        $someId = new ObjectId('63ffeab570b22eb36e00ca01');
+        $someId = new ObjectId('64026dbb534e5e2f60016ae1');
 
         $product = $dm->getRepository(Product::class)->find($someId);
 
@@ -58,7 +53,10 @@ class ProductController extends AbstractController
             throw $this->createNotFoundException('No product found for id ' . $id);
         }
 
-        // do something, like pass the $product object into a template
-        return new Response('Retrieved product id.' . $someId);
+        return new Response(
+              json_encode(['Product' => $product]),
+              Response::HTTP_OK,
+              ['content-type' => 'application/json']
+        );
     }
 }
