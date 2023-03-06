@@ -13,13 +13,6 @@ class BlogController extends AbstractController
     #[Route('/blog', name: 'blog_list')]
     public function list(): Response
     {
-
-      // $response = new Response(
-      //  'Content',
-      //    Response::HTTP_OK,
-      //   ['content-type' => 'text/html']
-      // );
-
       $response = new Response(
        json_encode(['Content' => 'here is some content']),
          Response::HTTP_OK,
