@@ -15,11 +15,6 @@ class Comment
     private $id;
 
     /**
-     * @MongoDB\Field(type="string")
-     */
-    public $name;
-
-    /**
      * @MongoDB\Field(type="array")
      */
     public $user;
@@ -39,13 +34,24 @@ class Comment
      */
     public $replies;
 
-    public function setName($arg): void
+    public function setUser($arg): void
     {
-      $this->name = $arg;
+
+      $this->user = $arg; // TODO: Do we need to set this with array_push()?
     }
 
-    public function setPrice($arg): void
+    public function setText($arg): void
     {
-      $this->price = $arg;
+      $this->text = $arg;
+    }
+
+    public function setTopLevelComment($arg): void
+    {
+      $this->top_level_comment = $arg;
+    }
+
+    public function setReplies($arg): void
+    {
+      $this->replies = $arg;
     }
 }
