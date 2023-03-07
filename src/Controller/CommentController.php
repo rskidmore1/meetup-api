@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 class CommentController extends AbstractController
 {
     #[Route('/comment/save-comment', name: 'save_comment', methods: ['POST'])] // here: todo: add this route to routes.yaml
-    public function enterProduct(DocumentManager $dm, Request $request): Response
+    public function saveComment(DocumentManager $dm, Request $request): Response
     {
 
         $comment = new Comment();
