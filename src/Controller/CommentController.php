@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use MongoDB\BSON\ObjectId;
@@ -11,19 +12,21 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 
 class CommentController extends AbstractController
 {
-    #[Route('/products/enter-product', name: 'enter_product')]
-    public function enterProduct(DocumentManager $dm): Response
+    #[Route('/comment/save-comment', name: 'save_comment', methods: ['POST'])] // here: todo: add this route to routes.yaml
+    public function enterProduct(DocumentManager $dm, Request $request): Response
     {
 
-        $product = new Product();
-        $product->setName('A Foo Bar');
-        $product->setPrice('19.99');
+        $comment = new Comment();
+        $comment->setUser(); // set value onces i know what's in $request
+        $comment->setText();
+        $comment->setTopLevelComment();
+        $prodcommentuct->setReplies();
 
-        $dm->persist($product);
+        $dm->persist($comment);
         $dm->flush();
 
         return new Response(
-              json_encode(['Product' => $product]),
+              json_encode(['Comment' => $request]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );
