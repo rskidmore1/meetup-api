@@ -16,17 +16,24 @@ class CommentController extends AbstractController
     public function saveComment(DocumentManager $dm, Request $request): Response
     {
 
+        $parameters = json_decode($request->getContent(), true);
+
         $comment = new Comment();
-        $comment->setUser(); // set value onces i know what's in $request
-        $comment->setText();
-        $comment->setTopLevelComment();
-        $prodcommentuct->setReplies();
+        $comment->setUser(
+            [
+                'id' => $parameters['user']['id'],
+                'name' => $parameters['user']['name'],
+                'photo' => $parameters['user']['photo']
+            ]
+        );
+        $comment->setText($parameters['text']);
+        $comment->setTopLevelComment($parameters['top_level_comment']);
+        $comment->setReplies($parameters['replies']);
 
         $dm->persist($comment);
         $dm->flush();
 
         return new Response(
-              json_encode(['Comment' => $request]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );
