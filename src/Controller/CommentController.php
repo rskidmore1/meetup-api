@@ -18,6 +18,11 @@ class CommentController extends AbstractController
 
         $parameters = json_decode($request->getContent(), true);
 
+        if (! $parameters) {
+            throw $this->parameterNotFoundException('No parameter found');
+        }
+
+
         $comment = new Comment();
         $comment->setUser(
             [
