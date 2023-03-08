@@ -13,9 +13,8 @@ class Comment
      * @MongoDB\Id
      */
     private $id;
-
-    /**
-     * @MongoDB\Field(type="array")
+   /**
+     * @MongoDB\Field(type="hash")
      */
     public $user;
 
@@ -25,19 +24,19 @@ class Comment
     public $text;
 
     /**
-     * @MongoDB\Field(type="boolean")
+     * @MongoDB\Field(type="bool")
      */
     public $top_level_comment;
 
     /**
-     * @MongoDB\Field(type="array")
+     * @MongoDB\Field(type="collection")
      */
     public $replies;
 
     public function setUser($arg): void
     {
 
-      $this->user = $arg; // TODO: Do we need to set this with array_push()?
+      $this->user = [...$arg]; // TODO: Do we need to set this with array_push()?
     }
 
     public function setText($arg): void
@@ -52,6 +51,6 @@ class Comment
 
     public function setReplies($arg): void
     {
-      $this->replies = $arg;
+      $this->replies = [...$arg];
     }
 }
