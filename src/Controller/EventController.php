@@ -10,6 +10,19 @@ class EventController extends AbstractController
     #[Route('/events/retrieve-event', name: 'retrieve_event')]
     public function retrieveEvent(): Response
     {
+      // Notes: temporary data schema until database is set up
+      $comment = [
+        'id' => '1234',
+        'user' => [
+          'id' => '1234',
+          'name' => 'Ryan S.',
+          'photo' => './somefile' // @todo: replace this
+        ],
+        'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae erat eleifend, egestas lorem eu, vehicula nisl.',
+        'top_comment' => true,
+        'replys' => [], // @todo: figure out how to keep order
+      ];
+
       // Note: temporary data schema until database is set up
       $data = [
         'title' => 'Some Event',
@@ -21,6 +34,7 @@ class EventController extends AbstractController
         'start-time' => 'sometime',
         'end-time' => 'sometime',
         'group' => 'somegroupID',
+        'comments' => [$comment, $comment],
       ];
 
       $response = new Response(json_encode($data));

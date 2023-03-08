@@ -20,3 +20,7 @@ retrieve_product:
 show_action:
     path: /products/show-action
     controller: App\Controller\ProductController::showAction
+
+save_comment:
+    path: /comment/save-comment
+    controller: App\Controller\CommentController::saveComment
