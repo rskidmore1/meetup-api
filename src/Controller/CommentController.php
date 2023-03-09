@@ -34,11 +34,13 @@ class CommentController extends AbstractController
         $comment->setText($parameters['text']);
         $comment->setTopLevelComment($parameters['top_level_comment']);
         $comment->setReplies($parameters['replies']);
+        $comment->setParentId($parameters['parent_id']);
 
         $dm->persist($comment);
         $dm->flush();
 
         return new Response(
+              json_encode(['status' => 'entered']),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );

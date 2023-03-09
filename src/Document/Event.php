@@ -39,19 +39,20 @@ class Event
     public $details_paragraph;
 
     /**
-     * @MongoDB\Field(type="timestamp")
+     * @MongoDB\Field(type="string")
      */
-    public $start_time;
+    public $start_time; // @todo: change type to timestamp
 
     /**
-     * @MongoDB\Field(type="timestamp")
+     * @MongoDB\Field(type="string")
      */
-    public $end_time;
+    public $end_time; // @todo: change type to timestamp
 
-    /**
-     * @MongoDB\Id
-     */
-    public $group;
+    // @todo: create groupID
+    // /**
+    //  * @MongoDB\Id
+    //  */
+    // public $groupId;
 
     public function setTitle($arg): void
     {
