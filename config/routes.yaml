@@ -10,7 +10,7 @@ blog_list:
     controller: App\Controller\BlogController::list
 
 retrieve_event:
-    path: /events/retrieve-event
+    path: /events/retrieve-event/{id}
     controller: App\Controller\EventController::retrieveEvent
 
 retrieve_product:
