@@ -10,7 +10,7 @@ blog_list:
     controller: App\Controller\BlogController::list
 
 retrieve_event:
-    path: /events/retrieve-event
+    path: /events/retrieve-event/{id}
     controller: App\Controller\EventController::retrieveEvent
 
 retrieve_product:
@@ -24,3 +24,7 @@ show_action:
 save_comment:
     path: /comment/save-comment
     controller: App\Controller\CommentController::saveComment
+
+retrieve_comment:
+    path: /comment/retrieve-comments/{id}
+    controller: App\Controller\CommentController::retrieveComments

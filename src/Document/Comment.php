@@ -33,6 +33,11 @@ class Comment
      */
     public $replies;
 
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $parent_id;
+
     public function setUser($arg): void
     {
 
@@ -52,5 +57,10 @@ class Comment
     public function setReplies($arg): void
     {
       $this->replies = [...$arg];
+    }
+
+    public function setParentId($arg): void
+    {
+      $this->parent_id = $arg;
     }
 }
