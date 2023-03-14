@@ -26,5 +26,5 @@ save_comment:
     controller: App\Controller\CommentController::saveComment
 
 retrieve_comment:
-    path: /comment/retrieve-comment/{id}
-    controller: App\Controller\CommentController::retrieveComment
+    path: /comment/retrieve-comments/{id}
+    controller: App\Controller\CommentController::retrieveComments
