@@ -12,7 +12,7 @@ class Comment
     /**
      * @MongoDB\Id
      */
-    private $id;
+    public $id; // @TODO: set all these to protected and make sure it works
    /**
      * @MongoDB\Field(type="hash")
      */
@@ -36,12 +36,17 @@ class Comment
     /**
      * @MongoDB\Field(type="string")
      */
-    private $parent_id;
+    public $parent_object_id;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    public $parent_comment_id;
 
     public function setUser($arg): void
     {
 
-      $this->user = [...$arg]; // TODO: Do we need to set this with array_push()?
+      $this->user = [...$arg];
     }
 
     public function setText($arg): void
@@ -59,8 +64,13 @@ class Comment
       $this->replies = [...$arg];
     }
 
-    public function setParentId($arg): void
+    public function setParentObjectId($arg): void
     {
-      $this->parent_id = $arg;
+      $this->parent_object_id = $arg;
+    }
+
+    public function setParentCommentId($arg): void
+    {
+      $this->parent_comment_id = $arg;
     }
 }
