@@ -19,7 +19,7 @@ class CommentController extends AbstractController
 
         $someId = new ObjectId($id);
 
-        $comments = $dm->getRepository(Comment::class)->findBy(["parent_id" => $someId]);
+        $comments = $dm->getRepository(Comment::class)->findBy(["parent_object_id" => $someId]);
 
         if (! $comments) {
             throw $this->createNotFoundException('No comment found for id ' . $id);
@@ -68,7 +68,8 @@ class CommentController extends AbstractController
         $comment->setText($parameters['text']);
         $comment->setTopLevelComment($parameters['top_level_comment']);
         $comment->setReplies($parameters['replies']);
-        $comment->setParentId($parameters['parent_id']);
+        $comment->setParentObjectId($parameters['parent_object_id']);
+        $comment->setParentCommentId($parameters['parent_comment_id']);
 
         $dm->persist($comment);
         $dm->flush();
