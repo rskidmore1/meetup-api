@@ -46,7 +46,7 @@ class Comment
     public function setUser($arg): void
     {
 
-      $this->user = [...$arg]; // TODO: Do we need to set this with array_push()?
+      $this->user = [...$arg];
     }
 
     public function setText($arg): void

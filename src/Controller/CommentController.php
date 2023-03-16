@@ -15,8 +15,6 @@ class CommentController extends AbstractController
     #[Route('/comment/retrieve-comments/{id}', name: 'retrieve_comments')]
     public function retrieveComments(DocumentManager $dm, $id): Response
     {
-      // Notes: temporary data schema until database is set up
-
         $someId = new ObjectId($id);
 
         $comments = $dm->getRepository(Comment::class)->findBy(["parent_object_id" => $someId]);
@@ -26,24 +24,10 @@ class CommentController extends AbstractController
         }
 
         return new Response(
-            //   json_encode(['comments' => $comments]),
               json_encode(['comments' => $comments]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );
-
-      // $comment = [
-      //   'id' => '1234',
-      //   'user' => [
-      //     'id' => '1234',
-      //     'name' => 'Ryan S.',
-      //     'photo' => './somefile' // @todo: replace this
-      //   ],
-      //   'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae erat eleifend, egestas lorem eu, vehicula nisl.',
-      //   'top_level_comment' => true,
-      //   'replies' => [], // @todo: figure out how to keep order
-      // ];
-
     }
 
     #[Route('/comment/save-comment', name: 'save_comment', methods: ['POST'])] // here: todo: add this route to routes.yaml
@@ -55,7 +39,6 @@ class CommentController extends AbstractController
         if (! $parameters) {
             throw $this->parameterNotFoundException('No parameter found');
         }
-
 
         $comment = new Comment();
         $comment->setUser(
