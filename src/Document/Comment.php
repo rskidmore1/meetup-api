@@ -12,7 +12,7 @@ class Comment
     /**
      * @MongoDB\Id
      */
-    private $id;
+    public $id;
    /**
      * @MongoDB\Field(type="hash")
      */
@@ -36,7 +36,7 @@ class Comment
     /**
      * @MongoDB\Field(type="string")
      */
-    private $parent_id;
+    public $parent_id;
 
     public function setUser($arg): void
     {
