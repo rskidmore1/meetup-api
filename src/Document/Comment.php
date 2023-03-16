@@ -12,7 +12,7 @@ class Comment
     /**
      * @MongoDB\Id
      */
-    public $id;
+    public $id; // @TODO: set all these to protected and make sure it works
    /**
      * @MongoDB\Field(type="hash")
      */
