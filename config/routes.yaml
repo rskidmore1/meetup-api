@@ -28,3 +28,7 @@ save_comment:
 retrieve_comment:
     path: /comment/retrieve-comments/{id}
     controller: App\Controller\CommentController::retrieveComments
+
+retrieve_group:
+    path: /group/retrieve-group/{id}
+    controller: App\Controller\GroupController::retrieveGroup
