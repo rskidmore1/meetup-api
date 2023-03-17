@@ -18,8 +18,6 @@ class GroupController extends AbstractController
     #[Route('/group/retrieve-group/{id}', name: 'retrieve_group')]
     public function retrieveGroup(DocumentManager $dm, $id): Response
     {
-      // Notes: temporary data schema until database is set up
-
         $someId = new ObjectId($id);
 
         $group = $dm->getRepository(Group::class)->find($someId);
@@ -48,7 +46,7 @@ class GroupController extends AbstractController
 //         }
 //         $group = $dm->getRespository(Group::class)->findAndUpdate()
 //             ->field
-
+~
 //         $group = new Group();
 //         $comment->setUser(
 //             [
@@ -84,7 +82,7 @@ class GroupController extends AbstractController
             throw $this->parameterNotFoundException('No parameter found');
         }
 
-        $group = new Group(); // Should i name these vars generically so i cna just copy paste them and change less vars?
+        $group = new Group();
         $group->setName($parameters['name']);
         $group->setPicture($parameters['picture']);
         $group->setDescription($parameters['description']);
