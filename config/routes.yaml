@@ -32,3 +32,7 @@ retrieve_comment:
 retrieve_group:
     path: /group/retrieve-group/{id}
     controller: App\Controller\GroupController::retrieveGroup
+
+create_group:
+    path: /group/create-group
+    controller: App\Controller\GroupController::createGroup
