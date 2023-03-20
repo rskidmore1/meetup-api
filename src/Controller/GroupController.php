@@ -76,7 +76,7 @@ class GroupController extends AbstractController
 //     }
 
 
- #[Route('/group/create-group', name: 'create_group', methods: ['POST'])] // here: todo: add this route to routes.yaml
+ #[Route('/group/create-group', name: 'create_group', methods: ['POST'])]
     public function createGroup(DocumentManager $dm, Request $request): Response
     {
 
@@ -86,7 +86,7 @@ class GroupController extends AbstractController
             throw $this->parameterNotFoundException('No parameter found');
         }
 
-        $group = new Group(); // Should i name these vars generically so i
+        $group = new Group();
         $group->setName($parameters['name']);
         $group->setPicture($parameters['picture']);
         $group->setDescription($parameters['description']);
