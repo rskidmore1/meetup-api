@@ -51,7 +51,6 @@ class UserController extends AbstractController
         $user->setActivityInterests($parameters['activity_interests']);
         $user->setGroups($parameters['groups']);
 
-
         $dm->persist($user);
         $dm->flush();
 
