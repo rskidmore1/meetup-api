@@ -7,7 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document
  */
-class Event
+class User
 {
   /**
    * @MongoDB\Id
@@ -91,7 +91,7 @@ class Event
 
       $this->activity_interests = $arg;
     }
-    public function setGroup($arg): void
+    public function setGroups($arg): void
     {
 
       $this->group = [...$arg];
