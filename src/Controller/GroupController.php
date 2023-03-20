@@ -18,7 +18,10 @@ class GroupController extends AbstractController
     #[Route('/group/retrieve-group/{id}', name: 'retrieve_group')]
     public function retrieveGroup(DocumentManager $dm, $id): Response
     {
+
         $someId = new ObjectId($id);
+
+
 
         $group = $dm->getRepository(Group::class)->find($someId);
 
@@ -26,11 +29,13 @@ class GroupController extends AbstractController
             throw $this->createNotFoundException('No comment found for id ' . $id);
         }
 
-        return new Response(
+        $response = new Response(
               json_encode(['group' => $group]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );
+
+        return $response;
 
     }
 
@@ -46,7 +51,6 @@ class GroupController extends AbstractController
 //         }
 //         $group = $dm->getRespository(Group::class)->findAndUpdate()
 //             ->field
-~
 //         $group = new Group();
 //         $comment->setUser(
 //             [
@@ -82,7 +86,7 @@ class GroupController extends AbstractController
             throw $this->parameterNotFoundException('No parameter found');
         }
 
-        $group = new Group();
+        $group = new Group(); // Should i name these vars generically so i
         $group->setName($parameters['name']);
         $group->setPicture($parameters['picture']);
         $group->setDescription($parameters['description']);
