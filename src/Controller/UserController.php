@@ -15,9 +15,9 @@ class UserController extends AbstractController
     #[Route('/user/retrieve-user/{id}', name: 'retrieve_user')]
     public function retrieveUser(DocumentManager $dm, $id): Response
     {
-        $someId = new ObjectId($id);
+        $objectId = new ObjectId($id);
 
-        $user = $dm->getRepository(User::class)->findBy(["_id" => $someId]);
+        $user = $dm->getRepository(User::class)->findBy(["_id" => $objectId]);
 
         if (! $user) {
             throw $this->createNotFoundException('No user found for id ' . $id);
