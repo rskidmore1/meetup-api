@@ -94,7 +94,7 @@ class User
     public function setGroups($arg): void
     {
 
-      $this->group = [...$arg];
+      $this->groups = [...$arg];
     }
 
 }
