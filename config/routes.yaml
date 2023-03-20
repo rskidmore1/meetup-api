@@ -28,3 +28,11 @@ save_comment:
 retrieve_comment:
     path: /comment/retrieve-comments/{id}
     controller: App\Controller\CommentController::retrieveComments
+
+save_user:
+    path: /user/save-user
+    controller: App\Controller\UserController::saveUser
+
+retrieve_user:
+    path: /user/retrieve-user/{id}
+    controller: App\Controller\UserController::retrieveUser
