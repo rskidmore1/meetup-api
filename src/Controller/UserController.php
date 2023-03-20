@@ -43,6 +43,7 @@ class UserController extends AbstractController
         $user = new User();
 
         $user->setName($parameters['name']);
+        $user->setPicture($parameters['picture']);
         $user->setLocation($parameters['location']);
         $user->setJoinedDate($parameters['joined_date']);
         $user->setLastVisitedDate($parameters['last_visited_date']);
