@@ -7,7 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document
  */
-class Event
+class User
 {
   /**
    * @MongoDB\Id
@@ -17,6 +17,10 @@ class Event
      * @MongoDB\Field(type="string")
      */
    public $name;
+   /**
+     * @MongoDB\Field(type="string")
+     */
+   public $picture;
    /**
      * @MongoDB\Field(type="string")
      */
@@ -52,6 +56,11 @@ class Event
 
       $this->name = $arg;
     }
+    public function setPicture($arg): void
+    {
+
+      $this->picture = $arg;
+    }
     public function setLocation($arg): void
     {
 
@@ -82,10 +91,10 @@ class Event
 
       $this->activity_interests = $arg;
     }
-    public function setGroup($arg): void
+    public function setGroups($arg): void
     {
 
-      $this->group = [...$arg];
+      $this->groups = [...$arg];
     }
 
 }
