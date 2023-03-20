@@ -20,6 +20,10 @@ class Event
    /**
      * @MongoDB\Field(type="string")
      */
+   public $picture;
+   /**
+     * @MongoDB\Field(type="string")
+     */
    public $location;
    /**
      * @MongoDB\Field(type="string")
@@ -51,6 +55,11 @@ class Event
     {
 
       $this->name = $arg;
+    }
+    public function setPicture($arg): void
+    {
+
+      $this->picture = $arg;
     }
     public function setLocation($arg): void
     {
