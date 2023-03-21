@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use MongoDB\BSON\ObjectId;
 use App\Document\Comment;
 use App\Document\Event;
+use App\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Psr\Log\LoggerInterface;
 
@@ -22,15 +23,24 @@ class EventController extends AbstractController
 
         $someId = new ObjectId($id);
 
+
         $event = $dm->getRepository(Event::class)->find($someId);
         $comments = $dm->getRepository(Comment::class)->findBy(["parent_id" => '64091cf1ee0ae9fed40f14ba']);
+        $host = $dm->getRepository(User::class)->findBy(["_id" => json_encode($event)['hosts'][0]]);
+        // NOTE: issue created to change to multiple hosts
+        // @TODO: add aggregate pipeline here?
+          // aggregate pipeline is more for scaling
 
         if (! $event) {
             throw $this->createNotFoundException('No comment found for id ' . $id);
         }
 
         return new Response(
-              json_encode(['event' => $event, 'comments' => $comments]),
+              json_encode([
+                'event' => $event,
+                'comments' => $comments,
+                'hosts' => $host,
+              ]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );
@@ -92,12 +102,10 @@ class EventController extends AbstractController
     }
 
       #[Route('/events/save-event', name: 'save_event', methods: ['POST'])] // here: todo: add this route to routes.yaml
-    public function saveEvent(DocumentManager $dm, Request $request, LoggerInterface $logger): Response
+    public function saveEvent(DocumentManager $dm, Request $request): Response
     {
 
         $parameters = json_decode($request->getContent(), true);
-
-        $logger->info('From event controller:', [$parameters]);
 
         if (! $parameters) {
             throw $this->parameterNotFoundException('No parameter found');
