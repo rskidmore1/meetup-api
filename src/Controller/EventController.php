@@ -22,7 +22,6 @@ class EventController extends AbstractController
       // Notes: temporary data schema until database is set up
 
         $someId = new ObjectId($id);
-        $userId = new ObjectId('6418e9f4fa9f8c7a6804cf75');
 
         $event = $dm->getRepository(Event::class)->find($someId);
         $comments = $dm->getRepository(Comment::class)->findBy(["parent_id" => '64091cf1ee0ae9fed40f14ba']);
