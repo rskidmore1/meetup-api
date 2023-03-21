@@ -19,14 +19,9 @@ class Event
     public $title;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @MongoDB\Field(type="collection")
      */
-    public $host;
-
-    /**
-     * @MongoDB\Field(type="string")
-     */
-    public $host_photo;
+    public $hosts;
 
     /**
      * @MongoDB\Field(type="string")
@@ -49,10 +44,10 @@ class Event
     public $end_time; // @todo: change type to timestamp
 
     // @todo: create groupID
-    // /**
-    //  * @MongoDB\Id
-    //  */
-    // public $groupId;
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    public $group;
 
     public function setTitle($arg): void
     {
@@ -60,14 +55,9 @@ class Event
       $this->title = $arg;
     }
 
-    public function setHost($arg): void
+    public function setHosts($arg): void
     {
-      $this->host = $arg;
-    }
-
-    public function setHostPhoto($arg): void
-    {
-      $this->host_photo = $arg;
+      $this->hosts = [...$arg];
     }
 
     public function setPhoto($arg): void

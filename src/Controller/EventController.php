@@ -2,11 +2,13 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use MongoDB\BSON\ObjectId;
 use App\Document\Comment;
 use App\Document\Event;
+use App\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Psr\Log\LoggerInterface;
 
@@ -23,13 +25,26 @@ class EventController extends AbstractController
 
         $event = $dm->getRepository(Event::class)->find($someId);
         $comments = $dm->getRepository(Comment::class)->findBy(["parent_id" => '64091cf1ee0ae9fed40f14ba']);
+        $hosts = [];
+
+        // NOTE: json_decode... converts cursor to json for query.
+        foreach(json_decode(json_encode($event,true), true)['hosts'] as $hostIt){
+          $host_query = $dm->getRepository(User::class)->find($hostIt);
+          array_push($hosts, json_decode(json_encode($host_query,true), true));
+        }
+        // @TODO: add aggregate pipeline here?
+          // aggregate pipeline is more for scaling
 
         if (! $event) {
             throw $this->createNotFoundException('No comment found for id ' . $id);
         }
 
         return new Response(
-              json_encode(['event' => $event, 'comments' => $comments]),
+              json_encode([
+                'event' => $event,
+                'comments' => $comments,
+                'hosts' => $hosts,
+              ]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );
@@ -88,5 +103,36 @@ class EventController extends AbstractController
         //       ['content-type' => 'application/json']
         // );
 
+    }
+
+      #[Route('/events/save-event', name: 'save_event', methods: ['POST'])] // here: todo: add this route to routes.yaml
+    public function saveEvent(DocumentManager $dm, Request $request): Response
+    {
+
+        $parameters = json_decode($request->getContent(), true);
+
+        if (! $parameters) {
+            throw $this->parameterNotFoundException('No parameter found');
+        }
+
+        $event = new Event();
+
+        $event->setTitle($parameters['title']);
+        $event->setHosts($parameters['hosts']);
+        $event->setPhoto($parameters['photo']);
+        $event->setLocation($parameters['location']);
+        $event->setDetailsParagraph($parameters['details_paragraph']);
+        $event->setStartTime($parameters['start_time']);
+        $event->setEndTime($parameters['end_time']);
+        $event->setGroup($parameters['group']);
+
+        $dm->persist($event);
+        $dm->flush();
+
+        return new Response(
+              json_encode(['status' => 'entered']),
+              Response::HTTP_OK,
+              ['content-type' => 'application/json']
+        );
     }
 }
