@@ -57,7 +57,7 @@ class Event
 
     public function setHosts($arg): void
     {
-      $this->hosts = $arg;
+      $this->hosts = [...$arg];
     }
 
     public function setPhoto($arg): void
