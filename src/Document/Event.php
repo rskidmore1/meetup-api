@@ -44,10 +44,10 @@ class Event
     public $end_time; // @todo: change type to timestamp
 
     // @todo: create groupID
-    // /**
-    //  * @MongoDB\Id
-    //  */
-    // public $groupId;
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    public $group;
 
     public function setTitle($arg): void
     {
