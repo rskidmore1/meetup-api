@@ -13,6 +13,10 @@ retrieve_event:
     path: /events/retrieve-event/{id}
     controller: App\Controller\EventController::retrieveEvent
 
+save_event:
+    path: /events/save-event
+    controller: App\Controller\EventController::saveEvent
+
 retrieve_product:
     path: /products/retrieve-product
     controller: App\Controller\ProductController::retrieveProduct
