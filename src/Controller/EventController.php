@@ -28,6 +28,7 @@ class EventController extends AbstractController
         $comments = $dm->getRepository(Comment::class)->findBy(["parent_id" => '64091cf1ee0ae9fed40f14ba']);
         $hosts = [];
 
+        // NOTE: json_decode... converts cursor to json for query.
         foreach(json_decode(json_encode($event,true), true)['hosts'] as $hostIt){
           $host_query = $dm->getRepository(User::class)->find($hostIt);
           array_push($hosts, json_decode(json_encode($host_query,true), true));
