@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use MongoDB\BSON\ObjectId;
@@ -88,5 +89,38 @@ class EventController extends AbstractController
         //       ['content-type' => 'application/json']
         // );
 
+    }
+
+      #[Route('/events/save-event', name: 'save_event', methods: ['POST'])] // here: todo: add this route to routes.yaml
+    public function saveEvent(DocumentManager $dm, Request $request, LoggerInterface $logger): Response
+    {
+
+        $parameters = json_decode($request->getContent(), true);
+
+        $logger->info('From event controller:', [$parameters]);
+
+        if (! $parameters) {
+            throw $this->parameterNotFoundException('No parameter found');
+        }
+
+        $event = new Event();
+
+        $event->setTitle($parameters['title']);
+        $event->setHosts($parameters['hosts']);
+        $event->setPhoto($parameters['photo']);
+        $event->setLocation($parameters['location']);
+        $event->setDetailsParagraph($parameters['details_paragraph']);
+        $event->setStartTime($parameters['start_time']);
+        $event->setEndTime($parameters['end_time']);
+        $event->setGroup($parameters['group']);
+
+        $dm->persist($event);
+        $dm->flush();
+
+        return new Response(
+              json_encode(['status' => 'entered']),
+              Response::HTTP_OK,
+              ['content-type' => 'application/json']
+        );
     }
 }
