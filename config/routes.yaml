@@ -29,6 +29,15 @@ retrieve_comment:
     path: /comment/retrieve-comments/{id}
     controller: App\Controller\CommentController::retrieveComments
 
+
+retrieve_group:
+    path: /group/retrieve-group/{id}
+    controller: App\Controller\GroupController::retrieveGroup
+
+create_group:
+    path: /group/create-group
+    controller: App\Controller\GroupController::createGroup
+
 save_user:
     path: /user/save-user
     controller: App\Controller\UserController::saveUser
@@ -36,3 +45,4 @@ save_user:
 retrieve_user:
     path: /user/retrieve-user/{id}
     controller: App\Controller\UserController::retrieveUser
+
