@@ -11,8 +11,6 @@ use App\Document\Group;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Psr\Log\LoggerInterface;
 
-
-
 class GroupController extends AbstractController
 {
     #[Route('/group/retrieve-group/{id}', name: 'retrieve_group')]
@@ -20,8 +18,6 @@ class GroupController extends AbstractController
     {
 
         $someId = new ObjectId($id);
-
-
 
         $group = $dm->getRepository(Group::class)->find($someId);
 
