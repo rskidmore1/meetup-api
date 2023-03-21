@@ -17,17 +17,21 @@ use Psr\Log\LoggerInterface;
 class EventController extends AbstractController
 {
     #[Route('/events/retrieve-event/{id}', name: 'retrieve_event')]
-    public function retrieveEvent(DocumentManager $dm, $id): Response
+    public function retrieveEvent(DocumentManager $dm, $id, LoggerInterface $logger): Response
     {
       // Notes: temporary data schema until database is set up
 
         $someId = new ObjectId($id);
-
+        $userId = new ObjectId('6418e9f4fa9f8c7a6804cf75');
 
         $event = $dm->getRepository(Event::class)->find($someId);
         $comments = $dm->getRepository(Comment::class)->findBy(["parent_id" => '64091cf1ee0ae9fed40f14ba']);
-        $host = $dm->getRepository(User::class)->findBy(["_id" => json_encode($event)['hosts'][0]]);
-        // NOTE: issue created to change to multiple hosts
+        $hosts = [];
+
+        foreach(json_decode(json_encode($event,true), true)['hosts'] as $hostIt){
+          $host_query = $dm->getRepository(User::class)->find($hostIt);
+          array_push($hosts, json_decode(json_encode($host_query,true), true));
+        }
         // @TODO: add aggregate pipeline here?
           // aggregate pipeline is more for scaling
 
@@ -39,7 +43,7 @@ class EventController extends AbstractController
               json_encode([
                 'event' => $event,
                 'comments' => $comments,
-                'hosts' => $host,
+                'hosts' => $hosts,
               ]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
