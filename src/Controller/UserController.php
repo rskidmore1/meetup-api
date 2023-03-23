@@ -17,7 +17,7 @@ class UserController extends AbstractController
     {
         $objectId = new ObjectId($id);
 
-        $user = $dm->getRepository(User::class)->findBy(["_id" => $objectId]);
+        $user = $dm->getRepository(User::class)->find($objectId);
 
         if (! $user) {
             throw $this->createNotFoundException('No user found for id ' . $id);
