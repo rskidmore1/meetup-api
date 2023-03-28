@@ -17,6 +17,10 @@ save_event:
     path: /events/save-event
     controller: App\Controller\EventController::saveEvent
 
+save_attendee:
+    path: /events/save-attendee
+    controller: App\Controller\EventController::saveAttendee
+
 retrieve_product:
     path: /products/retrieve-product
     controller: App\Controller\ProductController::retrieveProduct
@@ -49,4 +53,3 @@ save_user:
 retrieve_user:
     path: /user/retrieve-user/{id}
     controller: App\Controller\UserController::retrieveUser
-
