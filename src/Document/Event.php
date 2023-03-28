@@ -49,6 +49,12 @@ class Event
      */
     public $group;
 
+    /**
+     * @MongoDB\Field(type="collection")
+     */
+    public $attendees;
+
+
     public function setTitle($arg): void
     {
 
@@ -88,5 +94,9 @@ class Event
     public function setGroup($arg): void
     {
       $this->group = $arg;
+    }
+    public function setAttendees($arg): void
+    {
+      $this->group = [...$arg];
     }
 }
