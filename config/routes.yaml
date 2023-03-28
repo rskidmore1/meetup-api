@@ -50,3 +50,6 @@ retrieve_user:
     path: /user/retrieve-user/{id}
     controller: App\Controller\UserController::retrieveUser
 
+retrieve_members:
+    path: /user/retrieve-members
+    controller: App\Controller\UserController::retrieveMembers
