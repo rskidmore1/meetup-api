@@ -97,6 +97,6 @@ class Event
     }
     public function setAttendees($arg): void
     {
-      $this->group = [...$arg];
+      $this->attendees = [...$arg];
     }
 }
