@@ -153,13 +153,13 @@ class EventController extends AbstractController
             throw $this->parameterNotFoundException('No event found for ID ' . $someId);
         }
 
-        $event->setAttendees([$parameters['userId']]);
+        $event->setAttendees([...$event->attendees, $parameters['userId']]);
 
         $dm->persist($event);
         $dm->flush();
 
         return new Response(
-              json_encode(['param' => $parameters['userId']]),
+              json_encode(['success' => true]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );
