@@ -142,9 +142,9 @@ class EventController extends AbstractController
 
         $parameters = json_decode($request->getContent(), true);
 
-        $someId = new ObjectId($parameters['eventId']);
+        $eventId = new ObjectId($parameters['eventId']);
 
-        $event = $dm->getRepository(Event::class)->find($someId);
+        $event = $dm->getRepository(Event::class)->find($eventId);
 
         if (! $parameters) {
             throw $this->parameterNotFoundException('No parameter found');
