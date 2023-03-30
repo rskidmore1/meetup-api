@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use MongoDB\BSON\ObjectId;
 
+
 use App\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Psr\Log\LoggerInterface;
@@ -24,7 +25,6 @@ class UserController extends AbstractController
         if (! $user) {
             throw $this->createNotFoundException('No user found for id ' . $id);
         }
-
 
         return new Response(
               json_encode(['user' => $user]),
@@ -73,41 +73,19 @@ class UserController extends AbstractController
         // $group_id = new ObjectId($id);
         $group_name = 'OC Happy hour';
 
+
+
         $builder = $dm->createAggregationBuilder(User::class)
+            ->hydrate(false)
             ->match()
-                ->field('name')
-                ->equals('Cal S')
-            ->count('numberofnames');
-        // $builder
-        //     ->match()
-        //         ->field('groups')
-        //             ->unwind()
-        //             ->field('groupname')
-        //             ->equals('OC Python');
-        // $builder
-        //     ->lookup('groups')
-        //         ->alias('groups')
-        //     ->unwind('$groups')
-        //         ->group()
-        //             ->field('grou')
+                ->field('age')
+                ->equals('30')
+            ->execute()
+            ->toArray(false);
 
-        // $builder
-        // ->match()
-        //     ->field('name')
-        //     ->equals('Cal S');
-
-        $result =$builder->getAggregation();
-
-
-
-        $logger->info('From retrieve user: ', [$result]);
-
-        // if (! $user) {
-        //     throw $this->createNotFoundException('No user found for id ' . $id);
-        // }
 
         return new Response(
-              json_encode(['members' => $result]),
+              json_encode(['members' => $builder]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );
