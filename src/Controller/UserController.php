@@ -65,25 +65,25 @@ class UserController extends AbstractController
         );
     }
 
-    #[Route('/user/retrieve-members', name: 'retrieve_members')]
-    public function retrieveMembers(DocumentManager $dm, LoggerInterface $logger): Response
+    #[Route('/user/retrieve-members/{group_name}', name: 'retrieve_members')]
+    public function retrieveMembers(DocumentManager $dm, LoggerInterface $logger, $group_name): Response
     {
         // TODO: add back /{group_id} to url and $group_id as parameter
         // TODO: add back to routes.yaml /{group_id}
         // $group_id = new ObjectId($id);
-        $group_name = 'OC Happy hour';
+        // $group_name = 'OC Happy hour';
 
+        $logger->info('Group name: ', [$group_name]);
 
         $builder = $dm->createAggregationBuilder(User::class)
             ->hydrate(false)
             ->unwind('$groups')
             ->match()
                 ->field('groups.groupname')
-                ->equals('OC Python')
+                ->equals($group_name)
             ->execute()
             ->toArray(false);
             // NOTE: Do I want to have $project to return only certain fields?
-
 
         return new Response(
               json_encode(['members' => $builder]),

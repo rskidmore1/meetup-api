@@ -51,5 +51,5 @@ retrieve_user:
     controller: App\Controller\UserController::retrieveUser
 
 retrieve_members:
-    path: /user/retrieve-members
+    path: /user/retrieve-members/{group_name}
     controller: App\Controller\UserController::retrieveMembers
