@@ -74,14 +74,24 @@ class UserController extends AbstractController
         $group_name = 'OC Happy hour';
 
 
+        // $builder = $dm->createAggregationBuilder(User::class)
+        //     ->hydrate(false)
+        //     ->match()
+        //         ->field('age')
+        //         ->equals('30')
+        //     ->execute()
+        //     ->toArray(false);
+
 
         $builder = $dm->createAggregationBuilder(User::class)
             ->hydrate(false)
+            ->unwind('$groups')
             ->match()
-                ->field('age')
-                ->equals('30')
+                ->field('groups.groupname')
+                ->equals('OC Python')
             ->execute()
             ->toArray(false);
+
 
 
         return new Response(
