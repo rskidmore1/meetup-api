@@ -68,12 +68,6 @@ class UserController extends AbstractController
     #[Route('/user/retrieve-members/{group_name}', name: 'retrieve_members')]
     public function retrieveMembers(DocumentManager $dm, LoggerInterface $logger, $group_name): Response
     {
-        // TODO: add back /{group_id} to url and $group_id as parameter
-        // TODO: add back to routes.yaml /{group_id}
-        // $group_id = new ObjectId($id);
-        // $group_name = 'OC Happy hour';
-
-        $logger->info('Group name: ', [$group_name]);
 
         $builder = $dm->createAggregationBuilder(User::class)
             ->hydrate(false)
