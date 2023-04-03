@@ -10,7 +10,6 @@ use MongoDB\BSON\ObjectId;
 
 use App\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Psr\Log\LoggerInterface;
 
 
 class UserController extends AbstractController
@@ -66,9 +65,10 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/retrieve-members/{group_name}', name: 'retrieve_members')]
-    public function retrieveMembers(DocumentManager $dm, LoggerInterface $logger, $group_name): Response
+    public function retrieveMembers(DocumentManager $dm, $group_name): Response
     {
-
+        // Should we add a catch for none existant group names?
+        // Does this need any kind of exception?
         $builder = $dm->createAggregationBuilder(User::class)
             ->hydrate(false)
             ->unwind('$groups')
@@ -77,7 +77,6 @@ class UserController extends AbstractController
                 ->equals($group_name)
             ->execute()
             ->toArray(false);
-            // NOTE: Do I want to have $project to return only certain fields?
 
         return new Response(
               json_encode(['members' => $builder]),
