@@ -105,7 +105,7 @@ class EventController extends AbstractController
 
     }
 
-      #[Route('/events/save-event', name: 'save_event', methods: ['POST'])] // here: todo: add this route to routes.yaml
+    #[Route('/events/save-event', name: 'save_event', methods: ['POST'])] // here: todo: add this route to routes.yaml
     public function saveEvent(DocumentManager $dm, Request $request): Response
     {
 
@@ -125,12 +125,41 @@ class EventController extends AbstractController
         $event->setStartTime($parameters['start_time']);
         $event->setEndTime($parameters['end_time']);
         $event->setGroup($parameters['group']);
+        $event->setAttendees($parameters['attendees']);
 
         $dm->persist($event);
         $dm->flush();
 
         return new Response(
               json_encode(['status' => 'entered']),
+              Response::HTTP_OK,
+              ['content-type' => 'application/json']
+        );
+    }
+    #[Route('/events/save-attendee', name: 'save_attendee', methods: ['PUT'])] // here: todo: add this route to routes.yaml
+    public function saveAttendee(DocumentManager $dm, Request $request): Response
+    {
+
+        $parameters = json_decode($request->getContent(), true);
+
+        $eventId = new ObjectId($parameters['eventId']);
+
+        $event = $dm->getRepository(Event::class)->find($eventId);
+
+        if (! $parameters) {
+            throw $this->parameterNotFoundException('No parameter found');
+        }
+        if (! $event) {
+            throw $this->parameterNotFoundException('No event found for ID ' . $someId);
+        }
+
+        $event->setAttendees([...$event->attendees, $parameters['userId']]);
+
+        $dm->persist($event);
+        $dm->flush();
+
+        return new Response(
+              json_encode(['success' => true]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );
