@@ -7,8 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use MongoDB\BSON\ObjectId;
 
+
 use App\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
+
 
 class UserController extends AbstractController
 {
@@ -57,6 +59,27 @@ class UserController extends AbstractController
 
         return new Response(
               json_encode(['status' => 'entered']),
+              Response::HTTP_OK,
+              ['content-type' => 'application/json']
+        );
+    }
+
+    #[Route('/user/retrieve-members/{group_name}', name: 'retrieve_members')]
+    public function retrieveMembers(DocumentManager $dm, $group_name): Response
+    {
+        // Should we add a catch for none existant group names?
+        // Does this need any kind of exception?
+        $builder = $dm->createAggregationBuilder(User::class)
+            ->hydrate(false)
+            ->unwind('$groups')
+            ->match()
+                ->field('groups.groupname')
+                ->equals($group_name)
+            ->execute()
+            ->toArray(false);
+
+        return new Response(
+              json_encode(['members' => $builder]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
         );

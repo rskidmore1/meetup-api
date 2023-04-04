@@ -57,3 +57,8 @@ save_user:
 retrieve_user:
     path: /user/retrieve-user/{id}
     controller: App\Controller\UserController::retrieveUser
+
+
+retrieve_members:
+    path: /user/retrieve-members/{group_name}
+    controller: App\Controller\UserController::retrieveMembers
