@@ -31,7 +31,13 @@ class Event
     /**
      * @MongoDB\Field(type="string")
      */
+    public $photo;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
     public $details_paragraph;
+
 
     /**
      * @MongoDB\Field(type="string")
