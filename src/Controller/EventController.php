@@ -54,7 +54,6 @@ class EventController extends AbstractController
      #[Route('/events/retrieve-events/{group_name}', name: 'retrieve_events')]
     public function retrieveEvents(DocumentManager $dm, $group_name): Response
     {
-      // Notes: temporary data schema until database is set up
 
         $builder = $dm->createAggregationBuilder(Event::class)
             ->hydrate(false)
