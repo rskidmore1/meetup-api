@@ -46,6 +46,10 @@ retrieve_group:
     path: /group/retrieve-group/{id}
     controller: App\Controller\GroupController::retrieveGroup
 
+retrieve_groups:
+    path: /group/retrieve-groups
+    controller: App\Controller\GroupController::retrieveGroups
+
 create_group:
     path: /group/create-group
     controller: App\Controller\GroupController::createGroup
