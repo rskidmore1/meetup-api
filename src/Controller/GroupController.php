@@ -50,8 +50,6 @@ class GroupController extends AbstractController
 
     }
 
-
-
 //  #[Route('/comment/save-group', name: 'group', methods: ['PUT'])] // here: todo: add this route to routes.yaml
 //     public function saveGroup(DocumentManager $dm, Request $request): Response
 //     {
