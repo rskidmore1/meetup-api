@@ -26,14 +26,21 @@ class EventController extends AbstractController
         $event = $dm->getRepository(Event::class)->find($someId);
         $comments = $dm->getRepository(Comment::class)->findBy(["parent_id" => '64091cf1ee0ae9fed40f14ba']);
         $hosts = [];
+        $attendees = [];
 
         // NOTE: json_decode... converts cursor to json for query.
         foreach(json_decode(json_encode($event,true), true)['hosts'] as $hostIt){
           $host_query = $dm->getRepository(User::class)->find($hostIt);
           array_push($hosts, json_decode(json_encode($host_query,true), true));
         }
-        // @TODO: add aggregate pipeline here?
-          // aggregate pipeline is more for scaling
+
+        foreach(json_decode(json_encode($event,true), true)['attendees'] as $attendee){
+          $attendee_query = $dm->getRepository(User::class)->find($attendee);
+          array_push($attendees, [
+            "name" => json_decode(json_encode($attendee_query,true), true)["name"],
+            "picture" => json_decode(json_encode($attendee_query,true), true)["picture"]
+          ]);
+        }
 
         if (! $event) {
             throw $this->createNotFoundException('No comment found for id ' . $id);
@@ -44,6 +51,7 @@ class EventController extends AbstractController
                 'event' => $event,
                 'comments' => $comments,
                 'hosts' => $hosts,
+                'attendees' => $attendees,
               ]),
               Response::HTTP_OK,
               ['content-type' => 'application/json']
