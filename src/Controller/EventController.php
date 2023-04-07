@@ -17,7 +17,7 @@ use Psr\Log\LoggerInterface;
 class EventController extends AbstractController
 {
     #[Route('/events/retrieve-event/{id}', name: 'retrieve_event')]
-    public function retrieveEvent(DocumentManager $dm, $id, LoggerInterface $logger): Response
+    public function retrieveEvent(DocumentManager $dm, $id): Response
     {
       // Notes: temporary data schema until database is set up
 
