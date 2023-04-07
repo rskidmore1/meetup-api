@@ -34,7 +34,21 @@ class GroupController extends AbstractController
         return $response;
 
     }
+     #[Route('/group/retrieve-groups', name: 'retrieve_groups')]
+    public function retrieveGroups(DocumentManager $dm): Response
+    {
 
+        $groups = $dm->getRepository(Group::class)->findAll();
+
+        $response = new Response(
+              json_encode(['groups' => $groups]),
+              Response::HTTP_OK,
+              ['content-type' => 'application/json']
+        );
+
+        return $response;
+
+    }
 
 //  #[Route('/comment/save-group', name: 'group', methods: ['PUT'])] // here: todo: add this route to routes.yaml
 //     public function saveGroup(DocumentManager $dm, Request $request): Response
