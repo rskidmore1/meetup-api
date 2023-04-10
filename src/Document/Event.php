@@ -42,12 +42,22 @@ class Event
     /**
      * @MongoDB\Field(type="string")
      */
-    public $start_time; // @todo: change type to timestamp
+    public $start_time;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    public $end_time; // @todo: change type to timestamp
+    public $end_time;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    public $week;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    public $day;
 
     // @todo: create groupID
     /**
@@ -95,6 +105,16 @@ class Event
     public function setEndTime($arg): void
     {
       $this->end_time = $arg;
+    }
+
+    public function setWeek($arg): void
+    {
+      $this->week = $arg;
+    }
+
+    public function setDay($arg): void
+    {
+      $this->day = $arg;
     }
 
     public function setGroup($arg): void
