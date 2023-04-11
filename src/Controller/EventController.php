@@ -99,6 +99,8 @@ class EventController extends AbstractController
         $event->setDetailsParagraph($parameters['details_paragraph']);
         $event->setStartTime($parameters['start_time']);
         $event->setEndTime($parameters['end_time']);
+        $event->setWeek($parameters['week']);
+        $event->setDay($parameters['day']);
         $event->setGroup($parameters['group']);
         $event->setAttendees($parameters['attendees']);
 
