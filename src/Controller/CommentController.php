@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use MongoDB\BSON\ObjectId;
+use Psr\Log\LoggerInterface;
 
 use App\Document\Comment;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -15,12 +16,13 @@ class CommentController extends AbstractController
     #[Route('/comment/retrieve-comments/{id}', name: 'retrieve_comments')]
     public function retrieveComments(DocumentManager $dm, $id): Response
     {
-        $someId = new ObjectId($id);
 
-        $comments = $dm->getRepository(Comment::class)->findBy(["parent_object_id" => $someId]);
-
-        if (! $comments) {
-            throw $this->createNotFoundException('No comment found for id ' . $id);
+        $comments = [];
+        if ($id === "undefined"){
+            $comments = [];
+            } else {
+            $someId = new ObjectId($id);
+            $comments = $dm->getRepository(Comment::class)->findBy(["parent_object_id" => $someId]);
         }
 
         return new Response(
